@@ -44,7 +44,7 @@ https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer/files
 Apparently when you do <FileReader>.readAsText(file) the function thinks it is doing you a favor. I don't know if I like the funcitonality but it essentiall replaces all '\n' characters in the file to <br>. This is probably why it takes awhile to actually load the damn file in.
 
 * TODOs to complete this task for myself
-** DONE Create basic spell check algorithm 
+** DONE +Create basic spell check algorithm+
 Using Node just figure out how to work with files, determine what should and should not be considered a word
 Validate the process
 
@@ -57,5 +57,5 @@ Should I have instructions for user? How hard is it to interpret what to do?
 Need some sort of confirmation that something is actually happening. 
 *** TODO Actual windows state which allows user to do the spell check stuff
 More to add here later.
-** DONE Figure out how to load file into memory from user drag/drop or input button (Load File)
+** DONE +Figure out how to load file into memory from user drag/drop or input button (Load File)+
 
