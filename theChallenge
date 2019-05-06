@@ -1,0 +1,11 @@
+Another challenge and excuse to code!!!
+
+*The goal* - Using a Node process check a specified file against a dictionary and determine what words are misspelled. Take a count of the total words misspelled. Log to the console all words misspelled, the total words in the document checked, and total number of words misspelled. The total words checked and total words misspelled should be logged to the console last seeing as the list of words may be very long.
+
+Words, specifically, are letters only. There is no punctuation or numbers in a word. So make sure you are only checking the right things. 
+
+This will require some use of things we have not looked at yet. Specifically learning how to work with files using Node. So reading some documentation will probably be necessary to do this thing.
+
+I have attached a zipped file which includes a dictionary large to be used. Folder of documents that can be checked.
+
+There technically is no wrong result. Though the number of words checked and the number of words misspelled may be considered as a form of validation that you have done things right. After I solve this myself I will send out the `keys` which provide my results for each document in the `texts` folder. In my `keys` I will only show what document it is, the number of words checked, and the number of words misspelled. 
