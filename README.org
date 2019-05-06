@@ -1,0 +1,61 @@
+* Building a simple browser based spell checking for use with basic text files
+This is pretty much the same as CS50 Speller PSET. I've just revised for myself to work on more JS stuff. As an aside I'm trying to learn more about ORG files. So its experementation on top of experementation. This is because I don't really want to learn markdown to much. Only the essentials.
+** Goal 1
+Using a Node process check a specified file against a dictionary and determine what words are misspelled. Take a count of the total words misspelled. Log to the console all words misspelled, the total words in the document checked, and total number of words misspelled. The total words checked and total words misspelled should be logged to the console last seeing as the list of words may be very long.
+
+Words, specifically, are letters and the apostrophe only. There is no punctuation or numbers in a word. So make sure you are only checking the right things.
+
+** Goal 2
+Design a web page that can load in a document, check that text for words misspelled, and identify to the user in some meaningful way what words are misspelled, allow the user to change the word in the document, allow the user to add words to the dictionary so all the same words following in the document are no longer misspelled.
+
+** Goal 3
+Design an algorithm which can provide to the user a list of suggestions to replace the misspelled word based on the words available in the dictionary.
+Not yet reviewed to identify a list of TODOs
+
+* NOTEs (Stuff I have learned as I proceed through the TODOs
+** Drag and Drop is a bit of a pain
+You need to make sure and prevent the default event action from happening. In the case of dragging a file into the browser the default action is to load that file into a new page. The simplest way I found to do this is as follows:
+
+Define element that you have as drop-area based on this html
+<input type="file" id="fileElem" multiple accept="media_type/text" onchange="handleFiles(this.files)">
+#+BEGIN_SRC js-mode
+let dropArea = document.getElementById('drop-area');
+#+END_SRC
+
+Remove all EventListeners for this drag/drop element
+#+BEGIN_SRC js-mode
+['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+    dropArea.addEventListener(eventName, preventDefaults, false);
+});
+
+function preventDefaults (e) {
+    e.preventDefault();
+    e.stopPropagation();
+}
+#+END_SRC
+
+The funny thing about this above is really you only need to preventDefaults for ['dragover', 'drop']. That ends up working just fine.
+
+** Dropped file creates a dataTransfer object from the DOM event (Hopefully correct terms)
+See here for MDN documentation
+https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer/files
+
+*** An interesting note when reading a file as text from FileReader()
+Apparently when you do <FileReader>.readAsText(file) the function thinks it is doing you a favor. I don't know if I like the funcitonality but it essentiall replaces all '\n' characters in the file to <br>. This is probably why it takes awhile to actually load the damn file in.
+
+* TODOs to complete this task for myself
+** DONE Create basic spell check algorithm 
+Using Node just figure out how to work with files, determine what should and should not be considered a word
+Validate the process
+
+** TODO Setup basic browser layout
+This will most likely be multi step process. What states (modes) should the UI be in?
+*** TODO Setup state for initial page load
+How should things look? 
+Should I have instructions for user? How hard is it to interpret what to do?
+*** TODO Implement loading screen? When user loads large file it can take some time for the browser to parse and present the file.
+Need some sort of confirmation that something is actually happening. 
+*** TODO Actual windows state which allows user to do the spell check stuff
+More to add here later.
+** DONE Figure out how to load file into memory from user drag/drop or input button (Load File)
+
