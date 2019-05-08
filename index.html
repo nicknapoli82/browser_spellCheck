@@ -4,14 +4,26 @@
     <link rel="stylesheet" href="basicLayout.css">
   </head>
   <body>
-    <div id="drop-area">
-      <form class="my-form">
-	<p>Upload multiple files with the file dialog or by dragging and dropping images onto the dashed region</p>
-	<input type="file" id="fileElem" multiple accept="media_type/text" onchange="handleFiles(this.files)">
-	<label class="button" for="fileElem">Select some files</label>
-      </form>
+    <div id="header">
+      <div id="banner">
+	<h1>Nicks<br>Spell check thing-a-ma-bobber</h1>
+      </div>
+      <div id="header-buttons">
+	<div id="drop-area">
+	  <form class="my-form">
+	    <p>Upload multiple files with the file dialog or by dragging and dropping images onto the dashed region</p>
+	    <input type="file" id="fileElem" accept=".txt" onchange="handleFiles(this.files)">
+	    <label class="button" for="fileElem">Select some files</label>
+	  </form>
+	</div>
+      </div>
     </div>
-    <div id="gallery"></div>
+    <div id="text-body">
+      <div id="doc">
+      </div>
+      <div id="user-function">
+      </div>
+    </div>
   </body>
   <script src="drag.js"></script>
 </html>

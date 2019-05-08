@@ -1,9 +1,32 @@
+#header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 5px solid #000000;
+    border-radius: 15px;
+}
+
+#header div {
+    border: 2px dashed #ccc;
+}
+
+#banner {
+    width: 20%;
+    text-align: center;
+    min-width: 150px;
+}
+
+#header-buttons {
+    display: flex;
+    justify-content: center;
+    width: 80%;
+}
+
 #drop-area {
   border: 2px dashed #ccc;
   border-radius: 20px;
-  width: 480px;
+/*  width: 480px; */
   font-family: sans-serif;
-  margin: 100px auto;
+/*  margin: 100px auto; */
   padding: 20px;
 }
 #drop-area.highlight {
@@ -15,15 +38,7 @@ p {
 .my-form {
   margin-bottom: 10px;
 }
-#gallery {
-  margin-top: 10px;
-}
-#gallery img {
-  width: 150px;
-  margin-bottom: 10px;
-  margin-right: 10px;
-  vertical-align: middle;
-}
+
 .button {
   display: inline-block;
   padding: 10px;
@@ -32,9 +47,11 @@ p {
   border-radius: 5px;
   border: 1px solid #ccc;
 }
+
 .button:hover {
   background: #ddd;
 }
+
 #fileElem {
   display: none;
 }
