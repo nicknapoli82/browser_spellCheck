@@ -1,5 +1,7 @@
 #header {
     display: flex;
+    max-height: 20vh;
+    min-width: 800px;
     justify-content: space-between;
     border-bottom: 5px solid #000000;
     border-radius: 15px;
@@ -21,6 +23,28 @@
     width: 80%;
 }
 
+#text-body {
+    display: flex;
+    justify-content: space-between;
+    max-height: 80vh;
+}
+
+#doc {
+    flex: 3;
+    min-height: 80vh;
+    min-width: 600px;
+    border-right: 5px solid #000;
+    border-top-right-radius: 15px;
+}
+
+#user-function {
+    flex: 1;
+    min-height: 80vh;    
+    min-width: 150px;
+    border-left: 5px solid #000;
+    border-top-left-radius: 15px;
+}
+
 #drop-area {
   border: 2px dashed #ccc;
   border-radius: 20px;
@@ -32,9 +56,9 @@
 #drop-area.highlight {
   border-color: purple;
 }
-p {
-  margin-top: 0;
-}
+
+
+
 .my-form {
   margin-bottom: 10px;
 }
