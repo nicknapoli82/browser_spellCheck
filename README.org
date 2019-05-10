@@ -41,13 +41,18 @@ See here for MDN documentation
 https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer/files
 
 *** An interesting note when reading a file as text from FileReader()
-Apparently when you do <FileReader>.readAsText(file) the function thinks it is doing you a favor. I don't know if I like the funcitonality but it essentiall replaces all '\n' characters in the file to <br>. This is probably why it takes awhile to actually load the damn file in.
++Apparently when you do <FileReader>.readAsText(file) the function thinks it is doing you a favor. I don't know if I like the funcitonality but it essentiall replaces all '\n' characters in the file to <br>. This is probably why it takes awhile to actually load the damn file in.+
 
+I found the above to not be true. <FileReader>.readAsText(file) does what it claims to do. What I found is when you set an element.innerText to this raw text is is the thing that is replacing '\n' with <br>. It does not handle '\t' as far as I have seen. This may not be true.
+
+Using the same as above but with element.innerHTML does not have this effect.
 * TODOs to complete this task for myself
 ** DONE +Create basic spell check algorithm+
 Using Node just figure out how to work with files, determine what should and should not be considered a word
 Validate the process
 
+** TODO Determine how to load text file into JS variable (the right way?)
+Working on this now.
 ** TODO Setup basic browser layout
 This will most likely be multi step process. What states (modes) should the UI be in?
 *** TODO Setup state for initial page load
@@ -55,6 +60,7 @@ How should things look?
 Should I have instructions for user? How hard is it to interpret what to do?
 *** TODO Implement loading screen? When user loads large file it can take some time for the browser to parse and present the file.
 Need some sort of confirmation that something is actually happening. 
+I chose to use the upper left region to help user determine when some action is being performed. 
 *** TODO Actual windows state which allows user to do the spell check stuff
 More to add here later.
 ** DONE +Figure out how to load file into memory from user drag/drop or input button (Load File)+
