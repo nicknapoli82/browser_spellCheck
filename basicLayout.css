@@ -64,12 +64,13 @@
 }
 
 .button {
-  display: inline-block;
-  padding: 10px;
-  background: #ccc;
-  cursor: pointer;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+    align: center;
+
+    padding: 10px;
+    background: #ccc;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid #ccc;
 }
 
 .button:hover {
@@ -77,5 +78,9 @@
 }
 
 #fileElem {
-  display: none;
+    display: none;
+}
+
+#dictElem {
+    display: none;
 }

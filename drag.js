@@ -6,21 +6,31 @@
 const VALID_LETTERS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
 		       'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '\''];
 
-function loadDict(name) {
-    let temp = fs.readFileSync(name).toString().split('\n');
-    let dict = {};
+let sticky_dict;
 
-    while(temp.length) {
-	let t = temp.pop();
-	dict[t] = null;
-    }
-    
-    return function(word) {
-	if (word in dict) {
-	    return true;
+function loadDict(file) {
+    //    let temp = fs.readFileSync(name).toString().split('\n');
+    let dict = {};    
+    // outputs the content of the text file
+    let file_contents = new FileReader();
+    file_contents.readAsText(file[0]);
+    file_contents.onloadend = function() {
+	file_contents = file_contents.result.split('\n');
+	while(file_contents.length) {
+    	    let t = file_contents.pop();
+    	    dict[t] = null;
 	}
-	return false;
+	console.log(dict);
     };
+
+    sticky_dict =  function(word) {
+    	if (word in dict) {
+    	    return true;
+    	}
+    	return false;
+    };
+
+    document.getElementById('load_dict').style.display = 'none';
 }
 
 function read_word_buf(buf) {
@@ -91,7 +101,7 @@ function previewFile(file) {
     reader.readAsText(file);
     reader.onloadend = function() {
 	let text = document.createElement('p');
-	text.innerHTML = reader.result;
+	text.innerText = reader.result;
 	document.getElementById('doc').appendChild(text);
     };
 }

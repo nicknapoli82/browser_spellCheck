@@ -13,6 +13,18 @@ Design an algorithm which can provide to the user a list of suggestions to repla
 Not yet reviewed to identify a list of TODOs
 
 * NOTEs (Stuff I have learned as I proceed through the TODOs
+** Loading local file from machine appears to not be possible
+I have tried about 5 different ways to force load a local file from the computer. None of which appear to work based on protections provided by the browser.
+
+One way that appears to still be possible is using the <link> preload/prefetch EG
+#+BEGIN_SRC HTML
+<link rel="preload" href="dictionaries/large" as="fetch" id="dict" onload="loadDict()">
+#+END_SRC
+This does load the file, but I don't know if it is possible to asscess the file from the <link> element, or frame memory it is loaded into.
+
+Attempted to force load file by HTML <input> element. You can not change the <input>.value to anything other than an empty string using JS though. The browser complains. 
+
+Attempted to force load by using <input> with value set in HTML file, create event, and dispatch. This also does not work though. For good reason.
 ** Drag and Drop is a bit of a pain
 You need to make sure and prevent the default event action from happening. In the case of dragging a file into the browser the default action is to load that file into a new page. The simplest way I found to do this is as follows:
 
@@ -53,6 +65,7 @@ Validate the process
 
 ** TODO Determine how to load text file into JS variable (the right way?)
 Working on this now.
+Found a way that works but is not really what I would want. I'll deal with it for now.
 ** TODO Setup basic browser layout
 This will most likely be multi step process. What states (modes) should the UI be in?
 *** TODO Setup state for initial page load

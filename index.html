@@ -2,8 +2,10 @@
 <html>
   <head>
     <link rel="stylesheet" href="basicLayout.css">
+    <!-- <link rel="preload" href="dictionaries/large" as="fetch" id="dict" onload="loadDict()">-->
   </head>
   <body>
+
     <div id="header">
       <div id="banner">
 	<h1>Nicks<br>Spell check thing-a-ma-bobber</h1>
@@ -16,6 +18,13 @@
 	    <label class="button" for="fileElem">Select some files</label>
 	  </form>
 	</div>
+      </div>
+      <div id="load_dict">
+	<form class="my-form">
+	  <p>Select A dictionary to load</p>
+	  <input type="file" id="dictElem" accept=".txt" onchange="loadDict(this.files)">
+	  <label class="button" for="dictElem">Select Dictionary</label>
+	</form>	
       </div>
     </div>
     <div id="text-body">
