@@ -29,12 +29,17 @@
     max-height: 80vh;
 }
 
+#text-body pre {
+    display: inline;
+}
+
 #doc {
     flex: 3;
     min-height: 80vh;
     min-width: 600px;
     border-right: 5px solid #000;
     border-top-right-radius: 15px;
+    white-space: pre-wrap;
 }
 
 #user-function {
@@ -83,4 +88,8 @@
 
 #dictElem {
     display: none;
+}
+
+.misspelled {
+    background-color: red;
 }

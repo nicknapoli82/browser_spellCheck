@@ -60,6 +60,10 @@ function readWordBuf(buf) {
     while(!VALID_LETTERS.includes(buf.buffer[buf.cursor]) && buf.cursor < buf.buffer.length) {
     	buf.cursor++;
     }
+    
+    // Store location of word beginning
+    buf.wordBegin = buf.cursor;
+    
     while(VALID_LETTERS.includes(buf.buffer[buf.cursor])) {
 	word_found += buf.buffer[buf.cursor];
 	buf.cursor++;
@@ -74,22 +78,43 @@ function readWordBuf(buf) {
 // the user to start working on document sooner. Some documents can take
 // up to 5 seconds to load. Thats a long time.
 function readFile(buf) {
-
+    // This is all the strings added up with span and such things added
+    const rawToHTML = [];
+    let PREInsert = (str) => `<pre>${str}</pre>`;
+    let SPANInsert = (currentID, word) => `<span id="${currentID}" class="misspelled">${word}</span>`;
+    let stringBegin = buf.cursor;    
+    let currentID = 0;
+    // just so I remember what I am doing here
+//    let wordsMisspelled = new MisspelledData();
+    
+    // Read through entire file using cursor
     while(buf.cursor < buf.buffer.length) {
 	let word = readWordBuf(buf);
 	if (word) {
 	    if (!stickyDict(word.toLowerCase())) {
-		console.log(word);
+		// Lets make sure there are no HTML formatters in any of the
+		// strings before we send it off to the 'doc' innerHTML
+		// Kill all '<' and '>' with an unyielding passion
+		// This is done only in the string before the misspelled is found
+		let tempStr = buf.buffer.slice(stringBegin, buf.wordBegin).split("");
+		tempStr.forEach(function (c, idx, arr) {
+		    if (c === '<') arr[idx] = '&lt';
+		    else if (c === '>') arr[idx] = '&gt';
+		});
+		tempStr = tempStr.join("");
+		rawToHTML.push(tempStr);
+		rawToHTML.push(SPANInsert(currentID, word));
+		currentID++;
+		stringBegin = buf.cursor;
 		totalMisspelled++;
 	    }
 	}
     }
 
-    // This will be used lated, just a reminder to myself
-    
-    // let text = document.createElement('p');
-    // text.innerText = reader.result;
-    // document.getElementById('doc').appendChild(text);
+    let text = document.createElement('p');
+    text.innerHTML = rawToHTML.join("");
+
+    document.getElementById('doc').appendChild(text);
 }
 
 
@@ -142,6 +167,6 @@ function previewFile(file) {
     let reader = new FileReader();
     reader.readAsText(file);
     reader.onloadend = function() {
-	readFile( { buffer: reader.result, cursor: 0 } );
+	readFile( { buffer: reader.result, cursor: 0, wordBegin: 0 } );
     };
 }
