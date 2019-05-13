@@ -13,6 +13,21 @@ Design an algorithm which can provide to the user a list of suggestions to repla
 Not yet reviewed to identify a list of TODOs
 
 * NOTEs (Stuff I have learned as I proceed through the TODOs
+** How I intend to operate on the text to check for spelling
+I think a reasonable way to work through this is.
+Read through the loaded text file exactly as is from my node version. If the word is found to be misspelled I will need to store the location of the misspelled word in two ways. One way for the raw text file, and one for the innerHTML that will be displayed in the DOM. The innerHTML in the DOM will surround the word with a <span> tag and an ID for that particular misspelled word. The locations will become offset as I continue to add <span>s in the innerHTML which is why I will need to store these as two separate locations. For the moment I think here is what I want the collection of data to look like. This will probably change.
+
+#+BEGIN_SRC Javascript
+misspelled_data { 
+    add_word: function (word) {
+        if (word in Object.keys(this)) {
+	    this.word.raw.push(// Data for location);
+	    this.word.HTML.push(// Data for location);
+        }
+    }
+}
+#+END_SRC
+
 ** Loading local file from machine appears to not be possible
 I have tried about 5 different ways to force load a local file from the computer. None of which appear to work based on protections provided by the browser.
 
@@ -77,4 +92,7 @@ I chose to use the upper left region to help user determine when some action is 
 *** TODO Actual windows state which allows user to do the spell check stuff
 More to add here later.
 ** DONE +Figure out how to load file into memory from user drag/drop or input button (Load File)+
+** TODO Read in text file and determine what words are incorrect
+I have two options here as far as I see things. The easy option is just to only work on a loaded text file as the browser would display (innerHTML). In this case I would have to ignore the <br> tag as it should not be considered for spell checking. Effectively this is the easy way because I'm not considering the posibility that a user would want to save the text back to disk.
 
+The more difficult way would be to operate on the raw text file, and the innerHTML in tandem. 
