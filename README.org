@@ -15,18 +15,31 @@ Not yet reviewed to identify a list of TODOs
 * NOTEs (Stuff I have learned as I proceed through the TODOs
 ** How I intend to operate on the text to check for spelling
 I think a reasonable way to work through this is.
-Read through the loaded text file exactly as is from my node version. If the word is found to be misspelled I will need to store the location of the misspelled word in two ways. One way for the raw text file, and one for the innerHTML that will be displayed in the DOM. The innerHTML in the DOM will surround the word with a <span> tag and an ID for that particular misspelled word. The locations will become offset as I continue to add <span>s in the innerHTML which is why I will need to store these as two separate locations. For the moment I think here is what I want the collection of data to look like. This will probably change.
+Read through the loaded text file exactly as is from my node version. If the word is found to be misspelled I will need to store the location of the misspelled word +in two ways+ from the rawText file for later use. +One way for the raw text file, and one for the innerHTML that will be displayed in the DOM+. The innerHTML in the DOM will surround the word with a <span> tag and an ID for that particular misspelled word. For the moment I think here is what I want the collection of data to look like. This will probably change.
 
 #+BEGIN_SRC Javascript
-misspelled_data { 
-    add_word: function (word) {
+class MisspelledData {
+    constructor () {
+    }
+    
+    addWord(word) {
         if (word in Object.keys(this)) {
-	    this.word.raw.push(// Data for location);
-	    this.word.HTML.push(// Data for location);
+	    this.word.push( {} ); // What is the data that I need here?
         }
+	else { this.word = [ new Word() ]; } // What is the data that I need here?
     }
 }
+
+function Word() {
+    this.rawLocation;
+    this.ID;
+    return this;
+}
 #+END_SRC
+
+I think its reasonable to use the keys added to the MisspelledData to create a linked list misspelled word IDs. So that if a user were to want to either add the word marked as misspelled to the dictionary then all following words in the linked list will not be marked, or if the user were to click a 'Do this for all' button then all the same words are changed.
+
+*rawLocation* in the Word may be used for saving the file back out to disk later. This really does nothing right now. If feel that having a Word and a list of MisspelledWords is going the help in the long run. Which is why I have these simple data structures set up this way right now. 
 
 ** Loading local file from machine appears to not be possible
 I have tried about 5 different ways to force load a local file from the computer. None of which appear to work based on protections provided by the browser.
@@ -40,6 +53,18 @@ This does load the file, but I don't know if it is possible to asscess the file 
 Attempted to force load file by HTML <input> element. You can not change the <input>.value to anything other than an empty string using JS though. The browser complains. 
 
 Attempted to force load by using <input> with value set in HTML file, create event, and dispatch. This also does not work though. For good reason.
+
+Finally I attempted to load using fetch(). Using
+#+BEGIN_SRC Javascript
+let test;
+fetch('dictionaries/large', {
+    mode: "no-cors",
+    headers: { "Content-Type": "text/plain" } })
+    .then(result => test = result)
+    .catch(error => console.error(error));
+#+END_SRC
+will fail in Chrome. It complains that fetch() can only be used with http/https protocols. So the file protocol is a no go. Interestingly Firefox does allow this. I have no interest in requiring a specific browser though.
+
 ** Drag and Drop is a bit of a pain
 You need to make sure and prevent the default event action from happening. In the case of dragging a file into the browser the default action is to load that file into a new page. The simplest way I found to do this is as follows:
 
@@ -81,6 +106,7 @@ Validate the process
 ** TODO Determine how to load text file into JS variable (the right way?)
 Working on this now.
 Found a way that works but is not really what I would want. I'll deal with it for now.
+I will probably revisit this topic in the future. So I won't mark it as done.
 ** TODO Setup basic browser layout
 This will most likely be multi step process. What states (modes) should the UI be in?
 *** TODO Setup state for initial page load
@@ -92,7 +118,9 @@ I chose to use the upper left region to help user determine when some action is 
 *** TODO Actual windows state which allows user to do the spell check stuff
 More to add here later.
 ** DONE +Figure out how to load file into memory from user drag/drop or input button (Load File)+
-** TODO Read in text file and determine what words are incorrect
+** DONE +Read in text file and determine what words are incorrect+
+(Update) I consider this done at this time. I may revisit if I want to use a different method of determining what words are misspelled.
+
 I have two options here as far as I see things. The easy option is just to only work on a loaded text file as the browser would display (innerHTML). In this case I would have to ignore the <br> tag as it should not be considered for spell checking. Effectively this is the easy way because I'm not considering the posibility that a user would want to save the text back to disk.
 
-The more difficult way would be to operate on the raw text file, and the innerHTML in tandem. 
+The more difficult way would be to operate on the raw text file, and the innerHTML in tandem. PS. I chose this way, which turns out to be not to bad at all. I don't need to work with both forms of strings in tandem.

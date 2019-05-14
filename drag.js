@@ -8,7 +8,6 @@ const VALID_LETTERS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L
 
 class MisspelledData {
     constructor () {
-//	this.SPANInsert = `<span id="${currentID}">${word}</span>`;
     }
     
     addWord(word) {
@@ -25,7 +24,6 @@ let totalMisspelled = 0;
 
 function Word() {
     this.rawLocation;
-    this.HTMLLocation;
     this.ID;
     return this;
 }
